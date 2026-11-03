@@ -1,39 +1,39 @@
-import { useEffect, useState, type FormEvent } from 'react'
-import { useSearchParams } from 'react-router'
-import { useBooksStore } from '../stores/booksStore'
-import BookCard from '../components/BookCard'
-import Paginacion from '../components/Paginacion'
+import { useEffect, useState, type FormEvent } from "react";
+import { useSearchParams } from "react-router";
+import { useBooksStore } from "../stores/booksStore";
+import BookCard from "../components/BookCard";
+import Paginacion from "../components/Paginacion";
 
 export default function PaginaCatalogo() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const page = Number(searchParams.get('page')) || 1
-  const search = searchParams.get('search') ?? ''
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+  const search = searchParams.get("search") ?? "";
 
-  const libros = useBooksStore((s) => s.libros)
-  const total = useBooksStore((s) => s.total)
-  const totalPages = useBooksStore((s) => s.totalPages)
-  const cargando = useBooksStore((s) => s.cargando)
-  const error = useBooksStore((s) => s.error)
-  const cargar = useBooksStore((s) => s.cargar)
+  const libros = useBooksStore((s) => s.libros);
+  const total = useBooksStore((s) => s.total);
+  const totalPages = useBooksStore((s) => s.totalPages);
+  const cargando = useBooksStore((s) => s.cargando);
+  const error = useBooksStore((s) => s.error);
+  const cargar = useBooksStore((s) => s.cargar);
 
-  const [texto, setTexto] = useState(search)
+  const [texto, setTexto] = useState(search);
 
   useEffect(() => {
-    cargar({ page, search })
-  }, [cargar, search])
+    cargar({ page, search });
+  }, [cargar, page, search]);
 
   const buscar = (e: FormEvent) => {
-    e.preventDefault()
-    const params: Record<string, string> = { page: '1' }
-    if (texto.trim()) params.search = texto.trim()
-    setSearchParams(params)
-  }
+    e.preventDefault();
+    const params: Record<string, string> = { page: "1" };
+    if (texto.trim()) params.search = texto.trim();
+    setSearchParams(params);
+  };
 
   const cambiarPagina = (nueva: number) => {
-    const params: Record<string, string> = { page: String(nueva) }
-    if (search) params.search = search
-    setSearchParams(params)
-  }
+    const params: Record<string, string> = { page: String(nueva) };
+    if (search) params.search = search;
+    setSearchParams(params);
+  };
 
   return (
     <section>
@@ -48,14 +48,20 @@ export default function PaginaCatalogo() {
             aria-label="Buscar"
             className="w-64 rounded-md border border-stone-300 bg-white px-3 py-2 text-sm outline-none focus:border-amber-500"
           />
-          <button type="submit" className="rounded-md bg-amber-700 px-4 py-2 text-sm font-medium text-white hover:bg-amber-800">
+          <button
+            type="submit"
+            className="rounded-md bg-amber-700 px-4 py-2 text-sm font-medium text-white hover:bg-amber-800"
+          >
             Buscar
           </button>
         </form>
       </div>
 
       {error && (
-        <p role="alert" className="rounded-md bg-rose-50 px-4 py-3 text-rose-700">
+        <p
+          role="alert"
+          className="rounded-md bg-rose-50 px-4 py-3 text-rose-700"
+        >
           No se pudo cargar el catálogo: {error}
         </p>
       )}
@@ -63,7 +69,10 @@ export default function PaginaCatalogo() {
       {cargando && !error && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 8 }, (_, i) => (
-            <div key={i} className="h-36 animate-pulse rounded-lg bg-stone-200" />
+            <div
+              key={i}
+              className="h-36 animate-pulse rounded-lg bg-stone-200"
+            />
           ))}
         </div>
       )}
@@ -80,7 +89,14 @@ export default function PaginaCatalogo() {
         </div>
       )}
 
-      {!error && <Paginacion page={page} totalPages={totalPages} total={total} onChange={cambiarPagina} />}
+      {!error && (
+        <Paginacion
+          page={page}
+          totalPages={totalPages}
+          total={total}
+          onChange={cambiarPagina}
+        />
+      )}
     </section>
-  )
+  );
 }

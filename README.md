@@ -50,11 +50,11 @@ pnpm dev
 
 ## Usuarios de prueba
 
-| Nombre | Correo | Contraseña | Rol |
-|---|---|---|---|
-| Administrador | admin@biblioteca.com | admin123 | ADMIN |
-| Ana Torres | ana@biblioteca.com | miembro123 | MIEMBRO |
-| Luis Pérez | luis@biblioteca.com | miembro123 | MIEMBRO |
+| Nombre        | Correo               | Contraseña | Rol     |
+| ------------- | -------------------- | ---------- | ------- |
+| Administrador | admin@biblioteca.com | admin123   | ADMIN   |
+| Ana Torres    | ana@biblioteca.com   | miembro123 | MIEMBRO |
+| Luis Pérez    | luis@biblioteca.com  | miembro123 | MIEMBRO |
 
 ## Estructura
 
@@ -81,15 +81,15 @@ frontend/
 
 ## API
 
-| Método | Ruta | Acceso | Descripción |
-|---|---|---|---|
-| `POST` | `/api/auth/login` | Público | Devuelve `{ token, usuario }` |
-| `GET` | `/api/books?search=&page=&limit=` | Público | Lista paginada: `{ data, total, page, totalPages }` |
-| `GET` | `/api/books/:id` | Público | Detalle de un libro |
-| `POST` | `/api/books` | ADMIN | Registra un libro |
-| `POST` | `/api/loans` | MIEMBRO | Registra un préstamo `{ bookId, days }` |
-| `GET` | `/api/loans/me` | MIEMBRO | Préstamos del usuario autenticado |
-| `GET` | `/api/loans/:id` | MIEMBRO, ADMIN | Detalle de un préstamo |
+| Método | Ruta                              | Acceso         | Descripción                                         |
+| ------ | --------------------------------- | -------------- | --------------------------------------------------- |
+| `POST` | `/api/auth/login`                 | Público        | Devuelve `{ token, usuario }`                       |
+| `GET`  | `/api/books?search=&page=&limit=` | Público        | Lista paginada: `{ data, total, page, totalPages }` |
+| `GET`  | `/api/books/:id`                  | Público        | Detalle de un libro                                 |
+| `POST` | `/api/books`                      | ADMIN          | Registra un libro                                   |
+| `POST` | `/api/loans`                      | MIEMBRO        | Registra un préstamo `{ bookId, days }`             |
+| `GET`  | `/api/loans/me`                   | MIEMBRO        | Préstamos del usuario autenticado                   |
+| `GET`  | `/api/loans/:id`                  | MIEMBRO, ADMIN | Detalle de un préstamo                              |
 
 Las rutas protegidas esperan el header `Authorization: Bearer <token>`.
 
@@ -111,7 +111,7 @@ Las rutas protegidas esperan el header `Authorization: Bearer <token>`.
 ### Detalle y préstamos
 
 - Un MIEMBRO puede pedir prestado un libro por un plazo de 1 a 14 días. Al confirmar, se muestra la fecha de devolución y el número de ejemplares disponibles baja en uno.
-- Un libro sin ejemplares disponibles (por ejemplo, *Rayuela*) no se puede pedir prestado.
+- Un libro sin ejemplares disponibles (por ejemplo, _Rayuela_) no se puede pedir prestado.
 - "Mis préstamos" lista los préstamos del usuario. Con los datos iniciales, Ana tiene 2 préstamos.
 - El ADMIN no ve "Mis préstamos" ni el formulario de préstamo.
 

@@ -1,22 +1,24 @@
-import swaggerAutogen from 'swagger-autogen'
+import swaggerAutogen from "swagger-autogen";
 
 const doc = {
   info: {
-    title: 'API Biblioteca Comunitaria',
-    description: 'Catálogo de libros y préstamos de la Biblioteca Comunitaria',
-    version: '1.0.0',
+    title: "API Biblioteca Comunitaria",
+    description: "Catálogo de libros y préstamos de la Biblioteca Comunitaria",
+    version: "1.0.0",
   },
-  servers: [{ url: 'http://localhost:3000' }],
+  servers: [{ url: "http://localhost:3001" }],
   components: {
     securitySchemes: {
-      bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
     },
   },
-}
+};
 
-const outputFile = 'swagger-output.json'
-const endpointsFiles = ['./src/index.ts']
+const outputFile = "swagger-output.json";
+const endpointsFiles = ["./src/index.ts"];
 
-swaggerAutogen({ openapi: '3.0.0' })(outputFile, endpointsFiles, doc).then(async () => {
-  await import('../index.js')
-})
+swaggerAutogen({ openapi: "3.0.0" })(outputFile, endpointsFiles, doc).then(
+  async () => {
+    await import("../index.js");
+  },
+);
